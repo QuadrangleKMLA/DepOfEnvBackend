@@ -3,6 +3,7 @@ package com.quadrangle.depofenvkmla.Documents.Daily;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ public class DailyServices {
         daily.updateTrashStatus(key);
 
         if (daily.getTrashStatus().get(key)) {
+            daily.setToday(new Date());
             return "Successfully Updated Room "+roomNumber+"'s Trash Type "+key+" to True";
         } else {
             return "Error Occurred";
