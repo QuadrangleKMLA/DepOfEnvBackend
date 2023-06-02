@@ -1,14 +1,12 @@
 package com.quadrangle.depofenvkmla.Documents.Weekly;
 
 import com.quadrangle.depofenvkmla.Documents.Daily.Daily;
+import com.quadrangle.depofenvkmla.Documents.Daily.DailyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -18,25 +16,36 @@ public class WeeklyServices {
     private WeeklyRepository weeklyRepository;
 
     @Autowired
+    private DailyRepository dailyRepository;
+
+    @Autowired
     private MongoTemplate mongoTemplate;
 
     public List<Weekly> listAllRooms() {
         return weeklyRepository.findAll();
     }
 
-    public Map<String, Date> getRoomStatus(int roomNumber) {
+    public Map<String, LocalDate> getRoomStatus(int roomNumber) {
         Weekly weekly = weeklyRepository.findByRoomNumber(roomNumber);
 
         return weekly.getDateMap();
     }
 
-    public Date addDate(int roomNumber) {
-        List<Daily> insert = mongoTemplate.find(new Query(Criteria.where("roomNumber").is(roomNumber)), Daily.class, "DAILY");
+    public Map<String,LocalDate> addDate(int roomNumber) {
         Weekly target = weeklyRepository.findByRoomNumber(roomNumber);
-        target.addDate(insert.get(0));
+        Daily date = dailyRepository.getRoomStatusByNumber(roomNumber);
+        if (target.getDateMap().size() == 0) {
+                target.addDate(date);
+        } else {
+            for (int i=1;i<=target.getDateMap().size();i++) {
+                if (!target.getDateMap().get(Integer.toString(i)).equals(date.getToday())) {
+                    target.addDate(date);
+                }
+            }
+        }
         weeklyRepository.save(target);
 
-        return target.getDateMap().get("date"+(target.getDateMap().size()-1));
+        return target.getDateMap();
     }
 
     public String resetAllRooms() {

@@ -1,4 +1,9 @@
 package com.quadrangle.depofenvkmla.Documents.Final;
 
-public interface FinalRepository {
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface FinalRepository extends MongoRepository<Final, ObjectId> {
 }

@@ -7,6 +7,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
 
@@ -19,7 +22,7 @@ public class Daily {
     private ObjectId id;
     private int number;
     private Map<String, Boolean> trashStatus;
-    private Date today = new Date();
+    private LocalDate today;
 
     public void updateTrashStatus(String key) {
         trashStatus.replace(key, true);
@@ -29,5 +32,16 @@ public class Daily {
         trashStatus.replace("Waste", false);
         trashStatus.replace("Recycle", false);
         trashStatus.replace("Box", false);
+    }
+
+    public void setToday(Date date) {
+        this.today = dateConverter(date);
+    }
+
+    public static LocalDate dateConverter(Date date) {
+
+        return Instant.ofEpochMilli(date.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
     }
 }

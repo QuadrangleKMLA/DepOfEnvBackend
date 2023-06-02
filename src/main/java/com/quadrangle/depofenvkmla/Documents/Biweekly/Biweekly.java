@@ -7,8 +7,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.*;
 
 @Document(collection = "BIWEEKLY")
 @Data
@@ -18,29 +18,43 @@ public class Biweekly {
     @Id
     private ObjectId id;
     private int roomNumber;
-    private ArrayList<Date[]> checkList = new ArrayList<>();
+    private Map<String, LocalDate[]> checkList;
+    private static boolean flag;
 
-    public void addDateSet(ArrayList<Date> weeklyCheckList) {
-        Date[] dateList = new Date[weeklyCheckList.size()];
-        int i = 0;
-        for (Date d : weeklyCheckList) {
-            dateList[i] = d;
+    public void addDateSet(Map<String, LocalDate> weeklyCheckList) {
+        LocalDate[] dateList = getDateList(weeklyCheckList);
+
+        if (flag) {
+            checkList.put("Week1", dateList);
+            flag = false;
+        } else {
+            checkList.put("Week2", dateList);
+            flag = true;
         }
 
-        checkList.add(dateList);
-
         if (checkList.size() > 2) {
-            checkList.remove(0);
+            checkList.remove(!flag ? "Week2" : "Week1");
         }
     }
 
     public boolean evaluateValidity() {
-        for (Date[] dL : checkList) {
-            if (dL.length < 2) {
+        for (LocalDate[] c : checkList.values()) {
+            if (c.length < 2) {
                 return false;
             }
         }
 
         return true;
+    }
+
+    public static LocalDate[] getDateList(Map<String, LocalDate> localDateMap) {
+        LocalDate[] localDates = new LocalDate[localDateMap.size()];
+        int i=0;
+        for (LocalDate localDate : localDateMap.values()) {
+            localDates[i] = localDate;
+            i++;
+        }
+
+        return localDates;
     }
 }

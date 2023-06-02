@@ -8,8 +8,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Map;
 
 @Document(collection = "WEEKLY")
@@ -20,10 +19,10 @@ public class Weekly {
     @Id
     private ObjectId id;
     private int roomNumber;
-    private Map<String, Date> dateMap;
+    private Map<String, LocalDate> dateMap;
 
     public void addDate(Daily daily) {
-        dateMap.put(("date"+(dateMap.size()+1)), daily.getToday());
+        dateMap.put(Integer.toString(dateMap.size()+1), daily.getToday());
     }
 
     public void resetDateList() {

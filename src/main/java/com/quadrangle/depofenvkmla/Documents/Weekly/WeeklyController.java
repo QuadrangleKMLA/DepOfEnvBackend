@@ -5,10 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/weekly")
@@ -22,12 +20,12 @@ public class WeeklyController {
     }
 
     @GetMapping("/get/{roomNumber}")
-    public ResponseEntity<Map<String, Date>> getRoomStatusByNumber(@PathVariable int roomNumber) {
+    public ResponseEntity<Map<String, LocalDate>> getRoomStatusByNumber(@PathVariable int roomNumber) {
         return new ResponseEntity<>(weeklyServices.getRoomStatus(roomNumber), HttpStatus.OK);
     }
 
     @PutMapping("/put/{roomNumber}")
-    public ResponseEntity<Date> addDateToRoom(@PathVariable int roomNumber) {
+    public ResponseEntity<Map<String, LocalDate>> addDateToRoom(@PathVariable int roomNumber) {
         return new ResponseEntity<>(weeklyServices.addDate(roomNumber), HttpStatus.OK);
     }
 
