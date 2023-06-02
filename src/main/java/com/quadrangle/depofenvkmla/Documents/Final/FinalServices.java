@@ -38,7 +38,7 @@ public class FinalServices {
             }
         }
 
-        return "true";
+        return "Successfully Evaluated!";
     }
 
     public String resetAllRooms() {
