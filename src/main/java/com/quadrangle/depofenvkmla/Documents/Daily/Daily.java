@@ -17,7 +17,7 @@ import java.util.Map;
 public class Daily {
     @Id
     private ObjectId id;
-    private int roomNumber;
+    private int number;
     private Map<String, Boolean> trashStatus;
     private Date today = new Date();
 

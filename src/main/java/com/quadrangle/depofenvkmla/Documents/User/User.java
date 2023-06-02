@@ -1,6 +1,5 @@
 package com.quadrangle.depofenvkmla.Documents.User;
 
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +26,6 @@ public class User {
     private String tel;
 
     @Indexed(unique = true)
-    @Email
     private String email;
 
     @Indexed(unique = true)

@@ -12,7 +12,7 @@ public class UserServices {
     private UserRepository userRepository;
 
     public List<User> allUsers() {
-        return userRepository.findAllUsers();
+        return userRepository.findAll();
     }
 
     public Optional<User> findUserByName(String name) {
@@ -24,7 +24,10 @@ public class UserServices {
     }
 
     public String deleteUser(String name, int wave) {
-        userRepository.deleteUser(name, wave);
+
+
+        assert findUserByName(name).isPresent();
+        userRepository.delete(findUserByName(name).get());
 
         if (userRepository.findByName(name).isEmpty()) {
             return "Successfully Deleted";

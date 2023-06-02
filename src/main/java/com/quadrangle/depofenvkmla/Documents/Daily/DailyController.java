@@ -20,8 +20,8 @@ public class DailyController {
     }
 
     @GetMapping("/get/{number}")
-    public ResponseEntity<Map<String, Boolean>> getRoomStatus(@PathVariable int number) {
-        return new ResponseEntity<>(dailyServices.getRoomStatusByNumber(number), HttpStatus.OK);
+    public ResponseEntity<Map<String, Boolean>> getRoomStatus(@PathVariable int roomNumber) {
+        return new ResponseEntity<>(dailyServices.getRoomStatusByNumber(roomNumber), HttpStatus.OK);
     }
 
     @PutMapping("/put/{number}")
