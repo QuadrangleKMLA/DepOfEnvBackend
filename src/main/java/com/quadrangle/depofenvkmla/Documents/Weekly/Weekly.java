@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 @Document(collection = "WEEKLY")
 @Data
@@ -19,13 +20,13 @@ public class Weekly {
     @Id
     private ObjectId id;
     private int roomNumber;
-    private ArrayList<Date> checkList = new ArrayList<>();
+    private Map<String, Date> dateMap;
 
     public void addDate(Daily daily) {
-        checkList.add(daily.getToday());
+        dateMap.put(("date"+(dateMap.size()+1)), daily.getToday());
     }
 
     public void resetDateList() {
-        checkList.clear();
+        dateMap.clear();
     }
 }

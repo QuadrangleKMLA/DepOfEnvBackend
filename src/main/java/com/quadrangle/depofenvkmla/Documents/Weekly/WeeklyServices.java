@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class WeeklyServices {
@@ -23,10 +24,10 @@ public class WeeklyServices {
         return weeklyRepository.findAll();
     }
 
-    public ArrayList<Date> getRoomStatus(int roomNumber) {
+    public Map<String, Date> getRoomStatus(int roomNumber) {
         Weekly weekly = weeklyRepository.findByRoomNumber(roomNumber);
 
-        return weekly.getCheckList();
+        return weekly.getDateMap();
     }
 
     public Date addDate(int roomNumber) {
@@ -35,7 +36,7 @@ public class WeeklyServices {
         target.addDate(insert.get(0));
         weeklyRepository.save(target);
 
-        return target.getCheckList().get(target.getCheckList().size()-1);
+        return target.getDateMap().get("date"+(target.getDateMap().size()-1));
     }
 
     public String resetAllRooms() {

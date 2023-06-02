@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/weekly")
@@ -21,7 +22,7 @@ public class WeeklyController {
     }
 
     @GetMapping("/get/{roomNumber}")
-    public ResponseEntity<ArrayList<Date>> getRoomStatusByNumber(@PathVariable int roomNumber) {
+    public ResponseEntity<Map<String, Date>> getRoomStatusByNumber(@PathVariable int roomNumber) {
         return new ResponseEntity<>(weeklyServices.getRoomStatus(roomNumber), HttpStatus.OK);
     }
 
