@@ -19,7 +19,7 @@ public class DailyController {
         return new ResponseEntity<>(dailyServices.listAllRooms(), HttpStatus.OK);
     }
 
-    @GetMapping("/get/{number}")
+    @GetMapping("/get/{roomNumber}")
     public ResponseEntity<Map<String, Boolean>> getRoomStatus(@PathVariable int roomNumber) {
         return new ResponseEntity<>(dailyServices.getRoomStatusByNumber(roomNumber), HttpStatus.OK);
     }

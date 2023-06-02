@@ -27,6 +27,7 @@ public class DailyServices {
 
         if (daily.getTrashStatus().get(key)) {
             daily.setToday(new Date());
+            dailyRepository.save(daily);
             return "Successfully Updated Room "+roomNumber+"'s Trash Type "+key+" to True";
         } else {
             return "Error Occurred";
@@ -38,6 +39,7 @@ public class DailyServices {
 
         for (Daily daily : roomList) {
             daily.resetTrashStatus();
+            dailyRepository.save(daily);
         }
 
         return "Reset All Room Status";
