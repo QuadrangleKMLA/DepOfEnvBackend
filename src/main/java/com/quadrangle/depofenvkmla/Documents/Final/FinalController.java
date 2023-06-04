@@ -3,15 +3,13 @@ package com.quadrangle.depofenvkmla.Documents.Final;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/final")
+@CrossOrigin(origins = "http://localhost:8080")
 public class FinalController {
     @Autowired
     private FinalServices finalServices;

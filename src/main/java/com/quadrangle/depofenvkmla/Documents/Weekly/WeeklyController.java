@@ -10,6 +10,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/weekly")
+@CrossOrigin(origins = "http://localhost:8080")
 public class WeeklyController {
     @Autowired
     private WeeklyServices weeklyServices;

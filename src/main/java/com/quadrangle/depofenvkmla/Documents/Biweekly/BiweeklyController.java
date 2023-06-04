@@ -11,6 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/biweekly")
+@CrossOrigin(origins = "http://localhost:8080")
 public class BiweeklyController {
     @Autowired
     private BiweeklyServices biweeklyServices;

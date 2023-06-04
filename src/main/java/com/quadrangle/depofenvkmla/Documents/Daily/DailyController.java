@@ -10,6 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/daily")
+@CrossOrigin(origins = "http://localhost:8080")
 public class DailyController {
     @Autowired
     private DailyServices dailyServices;
