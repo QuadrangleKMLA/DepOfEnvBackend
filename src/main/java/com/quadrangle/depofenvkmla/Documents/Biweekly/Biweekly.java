@@ -25,15 +25,15 @@ public class Biweekly {
         LocalDate[] dateList = getDateList(weeklyCheckList);
 
         if (flag) {
-            checkList.put("Week1", dateList);
+            checkList.put("Week2", dateList);
             flag = false;
         } else {
-            checkList.put("Week2", dateList);
+            checkList.put("Week1", dateList);
             flag = true;
         }
 
         if (checkList.size() > 2) {
-            checkList.remove(!flag ? "Week2" : "Week1");
+            checkList.remove(!flag ? "Week1" : "Week2");
         }
     }
 
