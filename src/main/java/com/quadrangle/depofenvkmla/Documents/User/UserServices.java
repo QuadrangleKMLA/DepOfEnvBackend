@@ -26,13 +26,12 @@ public class UserServices {
 
     public User createUser(String name, int wave, String tel, String email, String password) {
         String pwd = passwordEncoder.encode(password);
+        Optional<User> user = findUserByName(name);
 
-        return userRepository.save(new User(name, wave, tel, email, pwd));
+        return user.map(value -> userRepository.save(value)).orElseGet(() -> userRepository.save(new User(name, wave, tel, email, pwd)));
     }
 
     public String deleteUser(String name, int wave) {
-
-
         assert findUserByName(name).isPresent();
         userRepository.delete(findUserByName(name).get());
 
