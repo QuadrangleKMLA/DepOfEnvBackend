@@ -1,6 +1,8 @@
 package com.quadrangle.depofenvkmla.Documents.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,16 +13,21 @@ public class UserServices {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public List<User> allUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> findUserByName(String name) {
+    public Optional<User> findUserByName(String name) throws UsernameNotFoundException {
         return userRepository.findByName(name);
     }
 
     public User createUser(String name, int wave, String tel, String email, String password) {
-        return userRepository.insert(new User(name, wave, tel, email, password));
+        String pwd = passwordEncoder.encode(password);
+
+        return userRepository.save(new User(name, wave, tel, email, pwd));
     }
 
     public String deleteUser(String name, int wave) {

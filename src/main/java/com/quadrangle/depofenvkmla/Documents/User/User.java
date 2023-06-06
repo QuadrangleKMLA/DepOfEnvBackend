@@ -2,14 +2,14 @@ package com.quadrangle.depofenvkmla.Documents.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "USER")
 @Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 public class User {
     @Id
@@ -31,17 +31,21 @@ public class User {
     @Indexed(unique = true)
     private String password;
 
+    private final String role;
+
     public User(String name, int wave, String tel, String email, String password) {
         this.name = name;
         this.wave = wave;
         this.tel = tel;
         this.email = email;
         this.password = password;
+        role = "departmentAdmin";
     }
 
     public User(String name, int wave) {
         this.name = name;
         this.wave = wave;
+        role = "departmentAdmin";
     }
 
     public String toString() {

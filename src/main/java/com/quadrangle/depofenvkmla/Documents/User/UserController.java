@@ -26,7 +26,7 @@ public class UserController {
         return new ResponseEntity<>(userServices.findUserByName(name), HttpStatus.OK);
     }
 
-    @PostMapping("/push")
+    @PostMapping("/post")
     public ResponseEntity<User> createUser(@RequestBody Map<String, String> payload) {
         return new ResponseEntity<>(userServices.createUser(payload.get("name"), Integer.parseInt(payload.get("wave")), payload.get("telephone"), payload.get("email"), payload.get("password")), HttpStatus.CREATED);
     }
