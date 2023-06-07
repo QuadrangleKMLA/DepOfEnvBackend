@@ -1,13 +1,4 @@
-# SSL Certificate
+# Quadrangle - 민족사관고등학교 환경부 분리수거 상점 추천 정산 및 기록 리스트
 
-server.port = 8080
-
-server.ssl.key-store = depofenvkmla.p12
-
-server.ssl.key-store-password = depofenvkmlaadmin 
-
-key-store-type = pkcs12
-
-key-alias = depofenvkmlahttpsspring
-
-key-password = depofenvkmlaadmin
+이 프로그램은 Spring Boot 기반의 API 입니다.
+Java 를 사용하며 상점 추천을 위한 정보를 기록하고 상점 추천 여부를 정산하는 API 입니다.
