@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,23 +18,19 @@ public class FinalServices {
     @Autowired
     private BiweeklyRepository biweeklyRepository;
 
-    public Map<String, Boolean> listAwardPointsStatus() {
-        Final awardList = finalRepository.findAll().get(0);
-
-        return awardList.getAwardPointList();
+    public List<Final> listAwardPointsStatus() {
+        return finalRepository.findAll();
     }
 
     public String evaluateAllRooms() {
-        Final awardList = finalRepository.findAll().get(0);
-
         List<Biweekly> biweeklies = biweeklyRepository.findAll();
 
         for (Biweekly b : biweeklies) {
             if (b.evaluateValidity()) {
-                awardList.editAwardPointList(b.getRoomNumber());
+                Final roomAwards = finalRepository.findRoomByRoomNumber(b.getRoomNumber());
+                roomAwards.satisfiesConditions();
                 Map<String, LocalDate[]> input = b.getCheckList();
-                b.getCheckList().clear();
-
+                input.clear();
                 b.setCheckList(input);
             }
         }
@@ -42,9 +39,13 @@ public class FinalServices {
     }
 
     public String resetAllRooms() {
-        Final awardList = finalRepository.findAll().get(0);
+        List<Final> awardList = finalRepository.findAll();
 
-        awardList.resetAllToDefault();
+        for (Final f : awardList) {
+            f.resetConditions();
+            finalRepository.save(f);
+        }
+
         return "Successfully Reset";
     }
 }

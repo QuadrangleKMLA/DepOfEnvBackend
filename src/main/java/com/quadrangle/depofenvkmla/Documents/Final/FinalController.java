@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -15,7 +16,7 @@ public class FinalController {
     private FinalServices finalServices;
 
     @GetMapping("/get")
-    public ResponseEntity<Map<String, Boolean>> listAllRooms() {
+    public ResponseEntity<List<Final>> listAllRooms() {
         return new ResponseEntity<>(finalServices.listAwardPointsStatus(), HttpStatus.OK);
     }
 

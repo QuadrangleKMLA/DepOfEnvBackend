@@ -16,13 +16,14 @@ import java.util.Map;
 public class Final {
     @Id
     private ObjectId id;
-    private Map<String, Boolean> awardPointList;
+    private int roomNumber;
+    private boolean isQualified;
 
-    public void editAwardPointList(int roomNumber) {
-        awardPointList.put(Integer.toString(roomNumber), true);
+    public void satisfiesConditions() {
+        isQualified = true;
     }
 
-    public void resetAllToDefault() {
-        awardPointList.replaceAll((s, v) -> false);
+    public void resetConditions() {
+        isQualified = false;
     }
 }

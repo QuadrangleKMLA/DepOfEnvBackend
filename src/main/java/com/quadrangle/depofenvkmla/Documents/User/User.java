@@ -3,50 +3,29 @@ package com.quadrangle.depofenvkmla.Documents.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "USER")
+import java.util.HashSet;
+import java.util.Set;
+
+@Document("USER")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
     @Id
-    private String id;
+    private ObjectId id;
 
-    @Indexed(unique = true)
-    private String name;
-
-    private boolean isCaptain = false;
-
-    private int wave;
-
-    @Indexed(unique = true)
-    private String tel;
-
-    @Indexed(unique = true)
+    private String username;
     private String email;
-
-    @Indexed(unique = true)
     private String password;
+    private Set<Role> roles = new HashSet<>();
 
-    private String role = "departmentAdmin";
-
-    public User(String name, int wave, String tel, String email, String password) {
-        this.name = name;
-        this.wave = wave;
-        this.tel = tel;
+    public User(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
-    }
-
-    public User(String name, int wave) {
-        this.name = name;
-        this.wave = wave;
-    }
-
-    public String toString() {
-        return String.format("User[name='%s', wave='%d']",name, wave);
     }
 }
